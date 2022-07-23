@@ -6,8 +6,6 @@
 
 namespace logic {
 
-// using std::array;
-// using std::pair;
 using std::vector;
 
 using Pieces = vector<entity::Piece>;

@@ -27,10 +27,6 @@ class Game {
     /// @brief print changes in memory to screen
     void Print() const;
 
-    /// @brief print a game over message and quit
-    /// @return true if the game should continue
-    // bool Quit();
-
   private:
     bool gameOver_{false};
     int input_;
