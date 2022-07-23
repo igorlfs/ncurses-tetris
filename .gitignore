@@ -1,0 +1,10 @@
+# binaries
+binary
+tests
+
+# build files
+obj/*
+compile_commands.json
+
+# editor's junk
+.cache/*

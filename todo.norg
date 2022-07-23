@@ -1,0 +1,17 @@
+* Basic
+  - [x] Handle collision with other pieces
+  - [x] Improve handling collision with floor
+  - [x] Losing condition
+  - [ ] Break Lines
+  - [ ] Action: rotation
+  - [?] Centralize pieces
+
+* Improvements
+  - [ ] Use a new name instead of piece
+  - [ ] Handle quit
+  - [ ] Score
+  - [ ] Next Piece
+
+* Maintenance
+  - [ ] unit tests
+  - [ ] document functions
