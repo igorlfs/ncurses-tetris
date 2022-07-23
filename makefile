@@ -23,9 +23,6 @@ HPP_SOURCE = $(wildcard $(LIB_DIR)/*)
 # Objects
 OBJ = $(subst .cpp,.o,$(subst $(SRC_DIR),$(BUILD_DIR),$(CPP_SOURCE)))
  
-# Command used at clean target
-RM = rm -rf
- 
 # Compilation and linking
 all: obj $(TARGET)
 
@@ -51,7 +48,6 @@ obj:
 	@ test -d $(BUILD_DIR) && true || mkdir -p $(BUILD_DIR)
  
 clean:
-	@ $(RM) ./$(BUILD_DIR)/*.o $(TARGET) $(TESTS) *~
-	@ test -d $(BUILD_DIR) && rmdir $(BUILD_DIR) || echo "Nothing to clean"
+	@ rm -rf $(BUILD_DIR) $(TARGET) $(TESTS) *~
  
 .PHONY: all clean obj test
