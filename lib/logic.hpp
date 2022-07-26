@@ -6,12 +6,16 @@
 
 namespace logic {
 
+using std::pair;
 using std::vector;
 
 using Pieces = vector<entity::Piece>;
 
 class Logic {
   public:
+    explicit Logic(const pair<int, int> &dimensions)
+        : height_(dimensions.second), width_(dimensions.first){};
+
     bool GeneratePiece();
 
     entity::Piece GetCurrent() const { return this->currentPiece_; };
@@ -28,11 +32,13 @@ class Logic {
 
     bool CheckCollision(const bool &lateral = false);
 
-    bool MoveDown(const int &height);
+    bool MoveDown();
     void MoveLeft();
-    void MoveRight(const int &width);
+    void MoveRight();
 
   private:
+    int height_;
+    int width_;
     entity::Piece newPos_;
     entity::Piece currentPiece_;
     bool hasCollided_{false};

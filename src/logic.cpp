@@ -9,12 +9,12 @@ bool logic::Logic::GeneratePiece() {
     return !CheckCollision();
 }
 
-bool logic::Logic::MoveDown(const int &height) {
+bool logic::Logic::MoveDown() {
     this->newPos_ = GetCurrent();
     auto *layout = GetCurrentLayout();
 
     for (auto &block : *layout) {
-        if (block.first + 1 > height) {
+        if (block.first + 1 > this->height_) {
             Place();
             this->hasCollided_ = true;
             return true;
@@ -44,12 +44,12 @@ void logic::Logic::MoveLeft() {
     CheckCollision(true);
 }
 
-void logic::Logic::MoveRight(const int &width) {
+void logic::Logic::MoveRight() {
     this->newPos_ = GetCurrent();
     auto *layout = GetCurrentLayout();
 
     for (auto &block : *layout) {
-        if (block.second + 1 > width) {
+        if (block.second + 1 > this->width_) {
             return;
         }
     }
@@ -77,6 +77,7 @@ bool logic::Logic::CheckCollision(const bool &lateral) {
 
     return false;
 }
+
 void logic::Logic::ResetCollision() {
     this->hasCollided_ = false;
     this->lateralCollision_ = false;

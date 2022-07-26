@@ -3,7 +3,8 @@
 #include <curses.h>
 #include <sys/types.h>
 
-game::Game::Game(WINDOW *win) : grid_(win) {}
+game::Game::Game(WINDOW *win)
+    : grid_(win), gate_({win->_maxx - 1, win->_maxy - 1}) {}
 
 void game::Game::ReadInput() {
     int userInputKey = wgetch(this->grid_.GetWin());
@@ -15,13 +16,10 @@ void game::Game::ReadInput() {
 }
 
 void game::Game::Update() {
-    int height = this->grid_.GetY();
-    int width = this->grid_.GetX();
-
     switch (this->input_) {
         case KEY_LEFT: this->gate_.MoveLeft(); break;
-        case KEY_RIGHT: this->gate_.MoveRight(width); break;
-        default: this->gate_.MoveDown(height);
+        case KEY_RIGHT: this->gate_.MoveRight(); break;
+        default: this->gate_.MoveDown();
     }
 
     bool gravityCollision = this->gate_.GetGravity();
