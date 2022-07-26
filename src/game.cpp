@@ -33,6 +33,8 @@ void game::Game::Update() {
     } else if (!lateralCollision) {
         this->gate_.Replace();
     }
+
+    this->gate_.Tetris();
 }
 
 void game::Game::Print() const {

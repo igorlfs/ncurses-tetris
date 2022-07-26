@@ -1,14 +1,14 @@
 #pragma once
 
-#include <array>
 #include <utility>
+#include <vector>
 
 namespace entity {
 
-using std::array;
 using std::pair;
+using std::vector;
 
-using piece = array<pair<int, int>, 4>;
+using piece = vector<pair<int, int>>;
 
 class Piece {
   public:
@@ -28,14 +28,11 @@ class Piece {
 };
 
 static constexpr int kNumLayouts = 7;
-const array<piece, kNumLayouts> kLayouts = {{
-    {{{1, 1}, {1, 2}, {1, 3}, {1, 4}}},
-    {{{1, 1}, {1, 2}, {2, 2}, {2, 3}}},
-    {{{2, 1}, {2, 2}, {1, 2}, {1, 3}}},
-    {{{1, 1}, {1, 2}, {1, 3}, {2, 2}}},
-    {{{1, 1}, {1, 2}, {1, 3}, {2, 1}}},
-    {{{2, 1}, {2, 2}, {2, 3}, {1, 2}}},
-    {{{1, 1}, {1, 2}, {2, 1}, {2, 2}}},
-}};
+const vector<piece> kLayouts = {
+    {{1, 1}, {1, 2}, {1, 3}, {1, 4}}, {{1, 1}, {1, 2}, {2, 2}, {2, 3}},
+    {{2, 1}, {2, 2}, {1, 2}, {1, 3}}, {{1, 1}, {1, 2}, {1, 3}, {2, 2}},
+    {{1, 1}, {1, 2}, {1, 3}, {2, 1}}, {{2, 1}, {2, 2}, {2, 3}, {1, 2}},
+    {{1, 1}, {1, 2}, {2, 1}, {2, 2}},
+};
 
 } // namespace entity

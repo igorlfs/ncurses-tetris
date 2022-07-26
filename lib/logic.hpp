@@ -1,8 +1,6 @@
 #pragma once
 
 #include "piece.hpp"
-#include <array>
-#include <vector>
 
 namespace logic {
 
@@ -35,6 +33,9 @@ class Logic {
     bool MoveDown();
     void MoveLeft();
     void MoveRight();
+
+    vector<unsigned> CheckTetris();
+    void Tetris();
 
   private:
     int height_;

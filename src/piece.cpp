@@ -2,7 +2,7 @@
 #include "random.hpp"
 
 entity::Piece::Piece() {
-    int index = Random::rng(0, kLayouts.size() - 1);
+    int index = Random::rng(0, kNumLayouts - 1);
 
     this->layout_ = kLayouts[index];
     this->color_ = static_cast<short>(index + 1);

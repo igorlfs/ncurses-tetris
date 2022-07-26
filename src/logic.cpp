@@ -82,3 +82,49 @@ void logic::Logic::ResetCollision() {
     this->hasCollided_ = false;
     this->lateralCollision_ = false;
 }
+
+logic::vector<unsigned> logic::Logic::CheckTetris() {
+    vector<vector<bool>> map(this->height_);
+
+    for (auto &row : map) {
+        row.resize(this->width_, false);
+    }
+
+    for (const auto &piece : this->legacyPieces_) {
+        auto layout = piece.GetLayout();
+        for (const auto &block : layout) {
+            // Subtract 1 from the dimensions as the first row
+            // and the first column are the border
+            map[block.first - 1][block.second - 1] = true;
+        }
+    }
+
+    vector<unsigned> completeRows;
+    int iterator = 0;
+    for (const auto &row : map) {
+        namespace ranges = std::ranges;
+        if (ranges::all_of(row.begin(), row.end(),
+                           [](bool item) { return item; })) {
+            completeRows.push_back(iterator + 1);
+        }
+        iterator++;
+    }
+
+    return completeRows;
+}
+
+void logic::Logic::Tetris() {
+    vector<unsigned> completeRows = CheckTetris();
+    for (auto &row : completeRows) {
+        for (auto &piece : this->legacyPieces_) {
+            auto *layout = piece.GetLayoutAddr();
+            for (auto it = layout->begin(); it != layout->end();) {
+                if (it->first == static_cast<int>(row)) {
+                    layout->erase(it);
+                } else {
+                    it++;
+                }
+            }
+        }
+    }
+}

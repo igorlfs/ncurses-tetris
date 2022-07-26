@@ -2,7 +2,7 @@
   - [x] Handle collision with other pieces
   - [x] Improve handling collision with floor
   - [x] Losing condition
-  - [ ] Break Lines
+  - [x] Break Lines (Tetris)
   - [ ] Action: rotation
   - [?] Centralize pieces
 
