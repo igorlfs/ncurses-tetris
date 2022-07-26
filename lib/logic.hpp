@@ -17,7 +17,7 @@ class Logic {
     bool GeneratePiece();
 
     entity::Piece GetCurrent() const { return this->currentPiece_; };
-    entity::piece *GetCurrentLayout() {
+    entity::tetramino *GetCurrentLayout() {
         return this->currentPiece_.GetLayoutAddr();
     }
     Pieces GetLegacy() const { return this->legacyPieces_; }

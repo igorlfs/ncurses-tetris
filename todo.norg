@@ -7,7 +7,7 @@
   - [?] Centralize pieces
 
 * Improvements
-  - [ ] Use a new name instead of piece
+  - [x] Use a new name instead of piece (tetramino)
   - [ ] Handle quit
   - [ ] Score
   - [ ] Next Piece
