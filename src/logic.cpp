@@ -11,9 +11,9 @@ bool logic::Logic::GeneratePiece() {
 
 bool logic::Logic::MoveDown() {
     this->newPos_ = GetCurrent();
-    auto *layout = GetCurrentLayout();
+    const auto *layout = GetCurrentLayout();
 
-    for (auto &block : *layout) {
+    for (const auto &block : *layout) {
         if (block.first + 1 > this->height_) {
             Place();
             this->hasCollided_ = true;
@@ -31,9 +31,9 @@ bool logic::Logic::MoveDown() {
 
 void logic::Logic::MoveLeft() {
     this->newPos_ = GetCurrent();
-    auto *layout = GetCurrentLayout();
+    const auto *layout = GetCurrentLayout();
 
-    for (auto &block : *layout) {
+    for (const auto &block : *layout) {
         if (block.second - 1 < 1) {
             return;
         }
@@ -46,9 +46,9 @@ void logic::Logic::MoveLeft() {
 
 void logic::Logic::MoveRight() {
     this->newPos_ = GetCurrent();
-    auto *layout = GetCurrentLayout();
+    const auto *layout = GetCurrentLayout();
 
-    for (auto &block : *layout) {
+    for (const auto &block : *layout) {
         if (block.second + 1 > this->width_) {
             return;
         }
@@ -60,13 +60,13 @@ void logic::Logic::MoveRight() {
 }
 
 bool logic::Logic::CheckCollision(const bool &lateral) {
-    auto *layout = this->newPos_.GetLayoutAddr();
+    const auto *layout = this->newPos_.GetLayoutAddr();
 
-    for (const auto &piece : this->legacyPieces_) {
-        auto legacyLayout = piece.GetLayout();
-        for (auto &legacyBlock : legacyLayout) {
-            for (auto &block : *layout) {
-                if (block == legacyBlock) {
+    for (const auto &piece : this->previousPieces_) {
+        const auto PREVIOUS_LAYOUT = piece.GetLayout();
+        for (const auto &previous : PREVIOUS_LAYOUT) {
+            for (const auto &block : *layout) {
+                if (block == previous) {
                     lateral ? this->lateralCollision_ = true
                             : this->hasCollided_ = true;
                     return true;
@@ -90,9 +90,9 @@ logic::vector<unsigned> logic::Logic::CheckTetris() {
         row.resize(this->width_, false);
     }
 
-    for (const auto &piece : this->legacyPieces_) {
-        auto layout = piece.GetLayout();
-        for (const auto &block : layout) {
+    for (const auto &piece : this->previousPieces_) {
+        const auto LAYOUT = piece.GetLayout();
+        for (const auto &block : LAYOUT) {
             // Subtract 1 from the dimensions as the first row
             // and the first column are the border
             map[block.first - 1][block.second - 1] = true;
@@ -104,7 +104,7 @@ logic::vector<unsigned> logic::Logic::CheckTetris() {
     for (const auto &row : map) {
         namespace ranges = std::ranges;
         if (ranges::all_of(row.begin(), row.end(),
-                           [](bool item) { return item; })) {
+                           [](const bool &item) { return item; })) {
             completeRows.push_back(iterator + 1);
         }
         iterator++;
@@ -114,9 +114,9 @@ logic::vector<unsigned> logic::Logic::CheckTetris() {
 }
 
 void logic::Logic::Tetris() {
-    vector<unsigned> completeRows = CheckTetris();
-    for (auto &row : completeRows) {
-        for (auto &piece : this->legacyPieces_) {
+    const vector<unsigned> COMPLETE_ROWS = CheckTetris();
+    for (const auto &row : COMPLETE_ROWS) {
+        for (auto &piece : this->previousPieces_) {
             auto *layout = piece.GetLayoutAddr();
             for (auto it = layout->begin(); it != layout->end();) {
                 if (it->first == static_cast<int>(row)) {

@@ -1,33 +1,33 @@
 #include "printer.hpp"
 
 void game::Printer::PrintCurrent(const entity::Piece &current, WINDOW *win) {
-    auto layout = current.GetLayout();
-    short color = current.GetColor();
+    const auto LAYOUT = current.GetLayout();
+    const short COLOR = current.GetColor();
 
-    for (auto &block : layout) {
-        wattron(win, COLOR_PAIR(color));
-        mvwaddch(win, block.first, block.second, '#');
-        wattroff(win, COLOR_PAIR(color));
+    for (const auto &block : LAYOUT) {
+        wattron(win, COLOR_PAIR(COLOR));
+        mvwaddch(win, block.first, block.second, kChar);
+        wattroff(win, COLOR_PAIR(COLOR));
     }
 }
 
 void game::Printer::Clear(WINDOW *win) {
     for (int i = 1; i < win->_maxx; ++i) {
         for (int j = 1; j < win->_maxy; ++j) {
-            mvwaddch(win, j, i, ' ');
+            mvwaddch(win, j, i, kChar);
         }
     }
 }
 
-void game::Printer::PrintLegacy(const Pieces &legacy, WINDOW *win) {
-    for (const auto &piece : legacy) {
-        auto layout = piece.GetLayout();
-        short color = piece.GetColor();
+void game::Printer::PrintPrevious(const Pieces &previous, WINDOW *win) {
+    for (const auto &piece : previous) {
+        const auto LAYOUT = piece.GetLayout();
+        const short COLOR = piece.GetColor();
 
-        for (auto &block : layout) {
-            wattron(win, COLOR_PAIR(color));
-            mvwaddch(win, block.first, block.second, '#');
-            wattroff(win, COLOR_PAIR(color));
+        for (const auto &block : LAYOUT) {
+            wattron(win, COLOR_PAIR(COLOR));
+            mvwaddch(win, block.first, block.second, kChar);
+            wattroff(win, COLOR_PAIR(COLOR));
         }
     }
 }

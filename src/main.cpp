@@ -26,8 +26,8 @@ WINDOW *CentralizeWindow() {
 }
 
 void Colors() {
-    const int TOTAL_COLORS = 7;
-    for (short i = 1; i <= TOTAL_COLORS; ++i) {
+    constexpr int kTotalColors = 7;
+    for (short i = 1; i <= kTotalColors; ++i) {
         init_pair(i, i, i);
     }
 }

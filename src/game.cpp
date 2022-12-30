@@ -7,11 +7,11 @@ game::Game::Game(WINDOW *win)
     : grid_(win), gate_({win->_maxx - 1, win->_maxy - 1}) {}
 
 void game::Game::ReadInput() {
-    int userInputKey = wgetch(this->grid_.GetWin());
+    const int USER_INPUT_KEY = wgetch(this->grid_.GetWin());
 
-    switch (userInputKey) {
+    switch (USER_INPUT_KEY) {
         case kQuit: this->gameOver_ = true; break;
-        default: this->input_ = userInputKey;
+        default: this->input_ = USER_INPUT_KEY;
     }
 }
 
@@ -22,15 +22,15 @@ void game::Game::Update() {
         default: this->gate_.MoveDown();
     }
 
-    bool gravityCollision = this->gate_.GetGravity();
-    bool lateralCollision = this->gate_.GetLateral();
+    const bool GRAVITY_COLLISION = this->gate_.GetGravity();
+    const bool LATERAL_COLLISION = this->gate_.GetLateral();
     this->gate_.ResetCollision();
 
-    if (gravityCollision) {
+    if (GRAVITY_COLLISION) {
         if (!this->gate_.GeneratePiece()) {
             this->gameOver_ = true;
         };
-    } else if (!lateralCollision) {
+    } else if (!LATERAL_COLLISION) {
         this->gate_.Replace();
     }
 
@@ -38,11 +38,11 @@ void game::Game::Update() {
 }
 
 void game::Game::Print() const {
-    auto current = this->gate_.GetCurrent();
-    auto legacy = this->gate_.GetLegacy();
+    const auto CURRENT = this->gate_.GetCurrent();
+    const auto PREVIOUS = this->gate_.GetPrevious();
     WINDOW *gameWin = this->grid_.GetWin();
 
     game::Printer::Clear(gameWin);
-    game::Printer::PrintCurrent(current, gameWin);
-    game::Printer::PrintLegacy(legacy, gameWin);
+    game::Printer::PrintCurrent(CURRENT, gameWin);
+    game::Printer::PrintPrevious(PREVIOUS, gameWin);
 }

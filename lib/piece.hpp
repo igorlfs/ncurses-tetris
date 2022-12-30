@@ -12,11 +12,17 @@ using tetramino = vector<pair<int, int>>;
 
 class Piece {
   public:
+    /// Constructors
+
     Piece();
+
+    /// Getters
 
     tetramino GetLayout() const { return this->layout_; }
     tetramino *GetLayoutAddr() { return &this->layout_; }
     short GetColor() const { return this->color_; }
+
+    /// Actions
 
     void MoveLeft();
     void MoveRight();

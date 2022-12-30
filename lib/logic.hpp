@@ -11,21 +11,28 @@ using Pieces = vector<entity::Piece>;
 
 class Logic {
   public:
+    /// Constructors
+
     explicit Logic(const pair<int, int> &dimensions)
         : height_(dimensions.second), width_(dimensions.first){};
 
-    bool GeneratePiece();
+    /// Getters
 
     entity::Piece GetCurrent() const { return this->currentPiece_; };
     entity::tetramino *GetCurrentLayout() {
         return this->currentPiece_.GetLayoutAddr();
     }
-    Pieces GetLegacy() const { return this->legacyPieces_; }
+    Pieces GetPrevious() const { return this->previousPieces_; }
     bool GetGravity() const { return this->hasCollided_; }
     bool GetLateral() const { return this->lateralCollision_; }
+
+    /// Actions
+
     void ResetCollision();
 
-    void Place() { this->legacyPieces_.push_back(this->currentPiece_); };
+    bool GeneratePiece();
+
+    void Place() { this->previousPieces_.push_back(this->currentPiece_); };
     void Replace() { this->currentPiece_ = this->newPos_; }
 
     bool CheckCollision(const bool &lateral = false);
@@ -44,6 +51,6 @@ class Logic {
     entity::Piece currentPiece_;
     bool hasCollided_{false};
     bool lateralCollision_{false};
-    Pieces legacyPieces_;
+    Pieces previousPieces_;
 };
 } // namespace logic
