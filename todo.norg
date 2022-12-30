@@ -1,17 +1,17 @@
 * Basic
-  - [x] Handle collision with other pieces
-  - [x] Improve handling collision with floor
-  - [x] Losing condition
-  - [x] Break Lines (Tetris)
-  - [ ] Action: rotation
-  - [?] Centralize pieces
+  - (x) Handle collision with other pieces
+  - (x) Improve handling collision with floor
+  - (x) Losing condition
+  - (x) Break Lines (Tetris)
+  - (x) Centralize pieces
+  - ( ) Action: rotation
 
 * Improvements
-  - [x] Use a new name instead of piece (tetramino)
-  - [ ] Handle quit
-  - [ ] Score
-  - [ ] Next Piece
+  - (x) Use a new name instead of piece (tetramino)
+  - (x) Score
+  - (x) Handle quit
+  - (?) Next Piece
 
 * Maintenance
-  - [ ] unit tests
-  - [ ] document functions
+  - (?) document functions
+  - (?) unit tests
