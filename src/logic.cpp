@@ -100,7 +100,7 @@ logic::vector<unsigned> logic::Logic::CheckTetris() {
         for (const auto &block : LAYOUT) {
             // Subtract 1 from the dimensions as the first row
             // and the first column are the border
-            map[block.first - 1][block.second - 1] = true;
+            map.at(block.first - 1).at(block.second - 1) = true;
         }
     }
 

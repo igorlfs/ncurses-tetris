@@ -3,10 +3,10 @@
 #include <algorithm>
 
 entity::Piece::Piece() {
-    ulong index = Random::Rng(0, kNumLayouts - 1);
+    ulong index = Random::Rng(0, kLayouts.size() - 1);
 
-    this->layout_ = kLayouts[index];
-    this->color_ = static_cast<short>(index + 1);
+    this->layout_ = kLayouts.at(index);
+    this->color_ = static_cast<short>(index % kNumColors + 1);
 }
 
 int entity::Piece::GetWidth() const {

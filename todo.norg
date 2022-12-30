@@ -4,7 +4,7 @@
   - (x) Losing condition
   - (x) Break Lines (Tetris)
   - (x) Centralize pieces
-  - ( ) Action: rotation
+  - (?) Action: rotation
 
 * Improvements
   - (x) Use a new name instead of piece (tetramino)
