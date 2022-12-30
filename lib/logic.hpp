@@ -14,7 +14,9 @@ class Logic {
     /// Constructors
 
     explicit Logic(const pair<int, int> &dimensions)
-        : height_(dimensions.second), width_(dimensions.first){};
+        : height_(dimensions.second), width_(dimensions.first) {
+        GeneratePiece();
+    };
 
     /// Getters
 
