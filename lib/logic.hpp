@@ -44,6 +44,8 @@ class Logic {
 
     vector<unsigned> CheckTetris();
     void Tetris();
+    static void ClearRows(const int &row, entity::tetramino *layout);
+    static void PushDown(const int &row, entity::tetramino *layout);
 
   private:
     int height_;

@@ -113,20 +113,34 @@ logic::vector<unsigned> logic::Logic::CheckTetris() {
     return completeRows;
 }
 
-void logic::Logic::Tetris() {
+void logic::Logic::ClearRows(const int &row, entity::tetramino *layout) {
+    for (auto it = layout->begin(); it != layout->end();) {
+        if (it->first == row) {
+            layout->erase(it);
+        } else {
+            it++;
+        }
+    }
+}
+
+void logic::Logic::PushDown(const int &row, entity::tetramino *layout) {
+    for (auto &part : *layout) {
+        if (part.first <= row) {
+            part.first++;
+        }
+    }
+}
+
+int logic::Logic::Tetris() {
     const vector<unsigned> COMPLETE_ROWS = CheckTetris();
     for (const auto &row : COMPLETE_ROWS) {
         for (auto &piece : this->previousPieces_) {
-            auto *layout = piece.GetLayoutAddr();
-            for (auto it = layout->begin(); it != layout->end();) {
-                if (it->first == static_cast<int>(row)) {
-                    layout->erase(it);
-                } else {
-                    it++;
-                }
-            }
+            entity::tetramino *layout = piece.GetLayoutAddr();
+            ClearRows(static_cast<int>(row), layout);
+            PushDown(static_cast<int>(row), layout);
         }
     }
+    return 0;
 }
 
 void logic::Logic::PlaceDown() {
