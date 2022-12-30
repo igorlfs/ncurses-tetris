@@ -5,6 +5,7 @@
 #include <vector>
 
 static constexpr int kQuit{static_cast<int>('x')};
+static constexpr int kAction{static_cast<int>(' ')};
 
 namespace game {
 

@@ -128,3 +128,10 @@ void logic::Logic::Tetris() {
         }
     }
 }
+
+void logic::Logic::PlaceDown() {
+    while (!this->hasCollided_) {
+        MoveDown();
+        Replace();
+    }
+}

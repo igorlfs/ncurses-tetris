@@ -19,6 +19,7 @@ void game::Game::Update() {
     switch (this->input_) {
         case KEY_LEFT: this->gate_.MoveLeft(); break;
         case KEY_RIGHT: this->gate_.MoveRight(); break;
+        case kAction: this->gate_.PlaceDown(); break;
         default: this->gate_.MoveDown();
     }
 

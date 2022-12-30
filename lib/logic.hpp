@@ -33,6 +33,7 @@ class Logic {
     bool GeneratePiece();
 
     void Place() { this->previousPieces_.push_back(this->currentPiece_); };
+    void PlaceDown();
     void Replace() { this->currentPiece_ = this->newPos_; }
 
     bool CheckCollision(const bool &lateral = false);
