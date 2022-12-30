@@ -1,7 +1,10 @@
 #include "game.hpp"
 #include "printer.hpp"
 #include <curses.h>
+#include <string>
 #include <sys/types.h>
+
+using std::string;
 
 game::Game::Game(pair<WINDOW *, WINDOW *> windows)
     : grid_(windows.first), scoreWindow_(windows.second),
@@ -49,4 +52,14 @@ void game::Game::Print() const {
     game::Printer::PrintCurrent(CURRENT, gameWin);
     game::Printer::PrintPrevious(PREVIOUS, gameWin);
     game::Printer::PrintScore(this->score_, scoreWin);
+}
+
+void game::Game::Quit() const {
+    WINDOW *scoreWin = this->scoreWindow_.GetWin();
+
+    const string MESSAGE = "GAME OVER";
+    const int M_SIZE = static_cast<int>(MESSAGE.size());
+    mvwprintw(scoreWin, 1, scoreWin->_maxx - M_SIZE, "%s", MESSAGE.c_str());
+    wrefresh(scoreWin);
+    wgetch(scoreWin);
 }

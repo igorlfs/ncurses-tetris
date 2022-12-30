@@ -30,6 +30,9 @@ class Game {
     /// @brief print changes in memory to screen
     void Print() const;
 
+    /// @brief print exit message
+    void Quit() const;
+
   private:
     bool gameOver_{false};
     int input_;

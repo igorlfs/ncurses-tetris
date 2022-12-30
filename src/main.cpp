@@ -37,7 +37,7 @@ int main() {
         tetris.ReadInput();
         tetris.Update();
     }
-    getch();
+    tetris.Quit();
 
     delwin(gameWindow);
     refresh();
