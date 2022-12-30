@@ -2,8 +2,8 @@
 #include "msgassert.hpp"
 #include "windowHandler.hpp"
 
-static constexpr int kWindowCols = 12;
-static constexpr int kWindowRows = 18;
+static constexpr int kWindowCols = 10;
+static constexpr int kWindowRows = 20;
 
 void Initialize() {
     initscr();
@@ -28,7 +28,7 @@ int main() {
     Colors();
 
     WINDOW *gameWindow =
-        WindowHandler::CentralizedWindow(kWindowCols, kWindowRows);
+        WindowHandler::CentralizedWindow(kWindowRows, kWindowCols);
     WINDOW *scoreWindow = WindowHandler::MakeScoreWindow(gameWindow);
     game::Game tetris({gameWindow, scoreWindow});
 
