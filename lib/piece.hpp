@@ -21,6 +21,7 @@ class Piece {
     tetramino GetLayout() const { return this->layout_; }
     tetramino *GetLayoutAddr() { return &this->layout_; }
     short GetColor() const { return this->color_; }
+    int GetWidth() const;
 
     /// Actions
 

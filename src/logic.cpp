@@ -2,8 +2,13 @@
 #include <algorithm>
 
 bool logic::Logic::GeneratePiece() {
-    const entity::Piece NEW_PIECE;
-    this->currentPiece_ = NEW_PIECE;
+    entity::Piece newPiece;
+    int pWidth = newPiece.GetWidth();
+    entity::tetramino *layout = newPiece.GetLayoutAddr();
+    for (auto &part : *layout) {
+        part.second += (this->width_ - pWidth) / 2;
+    }
+    this->currentPiece_ = newPiece;
     this->newPos_ = this->currentPiece_;
 
     return !CheckCollision();
