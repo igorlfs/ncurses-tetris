@@ -3,8 +3,9 @@
 #include <curses.h>
 #include <sys/types.h>
 
-game::Game::Game(WINDOW *win)
-    : grid_(win), gate_({win->_maxx - 1, win->_maxy - 1}) {}
+game::Game::Game(pair<WINDOW *, WINDOW *> windows)
+    : grid_(windows.first), scoreWindow_(windows.second),
+      gate_({windows.first->_maxx - 1, windows.first->_maxy - 1}) {}
 
 void game::Game::ReadInput() {
     const int USER_INPUT_KEY = wgetch(this->grid_.GetWin());
@@ -35,15 +36,17 @@ void game::Game::Update() {
         this->gate_.Replace();
     }
 
-    this->gate_.Tetris();
+    this->score_ += this->gate_.Tetris();
 }
 
 void game::Game::Print() const {
     const auto CURRENT = this->gate_.GetCurrent();
     const auto PREVIOUS = this->gate_.GetPrevious();
     WINDOW *gameWin = this->grid_.GetWin();
+    WINDOW *scoreWin = this->scoreWindow_.GetWin();
 
     game::Printer::Clear(gameWin);
     game::Printer::PrintCurrent(CURRENT, gameWin);
     game::Printer::PrintPrevious(PREVIOUS, gameWin);
+    game::Printer::PrintScore(this->score_, scoreWin);
 }

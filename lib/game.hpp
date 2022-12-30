@@ -1,7 +1,7 @@
 #pragma once
 
-#include "board.hpp"
 #include "logic.hpp"
+#include "window.hpp"
 #include <vector>
 
 static constexpr int kQuit{static_cast<int>('x')};
@@ -9,10 +9,12 @@ static constexpr int kAction{static_cast<int>(' ')};
 
 namespace game {
 
+using std::pair;
+
 class Game {
   public:
     /// Constructors
-    explicit Game(WINDOW *win);
+    explicit Game(pair<WINDOW *, WINDOW *> windows);
 
     /// Getters
     bool IsGameOver() const { return this->gameOver_; }
@@ -31,7 +33,9 @@ class Game {
   private:
     bool gameOver_{false};
     int input_;
-    Board grid_;
+    int score_{0};
+    Window grid_;
+    Window scoreWindow_;
     logic::Logic gate_;
 };
 

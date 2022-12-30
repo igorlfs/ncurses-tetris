@@ -11,14 +11,6 @@ void game::Printer::PrintCurrent(const entity::Piece &current, WINDOW *win) {
     }
 }
 
-void game::Printer::Clear(WINDOW *win) {
-    for (int i = 1; i < win->_maxx; ++i) {
-        for (int j = 1; j < win->_maxy; ++j) {
-            mvwaddch(win, j, i, kChar);
-        }
-    }
-}
-
 void game::Printer::PrintPrevious(const Pieces &previous, WINDOW *win) {
     for (const auto &piece : previous) {
         const auto LAYOUT = piece.GetLayout();
@@ -28,6 +20,19 @@ void game::Printer::PrintPrevious(const Pieces &previous, WINDOW *win) {
             wattron(win, COLOR_PAIR(COLOR));
             mvwaddch(win, block.first, block.second, kChar);
             wattroff(win, COLOR_PAIR(COLOR));
+        }
+    }
+}
+
+void game::Printer::PrintScore(const int &score, WINDOW *win) {
+    mvwprintw(win, 1, 1, "SCORE %d", score);
+    wrefresh(win);
+}
+
+void game::Printer::Clear(WINDOW *win) {
+    for (int i = 1; i < win->_maxx; ++i) {
+        for (int j = 1; j < win->_maxy; ++j) {
+            mvwaddch(win, j, i, kChar);
         }
     }
 }

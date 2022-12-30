@@ -145,7 +145,8 @@ int logic::Logic::Tetris() {
             PushDown(static_cast<int>(row), layout);
         }
     }
-    return 0;
+    this->scoreMultiplier_ = COMPLETE_ROWS.size();
+    return K_SCORE_MAP.at(this->scoreMultiplier_);
 }
 
 void logic::Logic::PlaceDown() {

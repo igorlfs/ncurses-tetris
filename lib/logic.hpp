@@ -1,9 +1,11 @@
 #pragma once
 
 #include "piece.hpp"
+#include <map>
 
 namespace logic {
 
+using std::map;
 using std::pair;
 using std::vector;
 
@@ -45,9 +47,9 @@ class Logic {
     void MoveRight();
 
     vector<unsigned> CheckTetris();
-    void Tetris();
     static void ClearRows(const int &row, entity::tetramino *layout);
     static void PushDown(const int &row, entity::tetramino *layout);
+    int Tetris();
 
   private:
     int height_;
@@ -56,6 +58,9 @@ class Logic {
     entity::Piece currentPiece_;
     bool hasCollided_{false};
     bool lateralCollision_{false};
+    unsigned scoreMultiplier_{0};
+    const map<unsigned, int> K_SCORE_MAP = {
+        {0, 0}, {1, 40}, {2, 100}, {3, 300}, {4, 1200}};
     Pieces previousPieces_;
 };
 } // namespace logic

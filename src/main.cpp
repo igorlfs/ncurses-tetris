@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include "msgassert.hpp"
+#include "windowHandler.hpp"
 
 static constexpr int kWindowCols = 12;
 static constexpr int kWindowRows = 18;
@@ -15,16 +16,6 @@ void Initialize() {
     use_default_colors();
 }
 
-WINDOW *CentralizeWindow() {
-    int yMax;
-    int xMax;
-
-    getmaxyx(stdscr, yMax, xMax);
-
-    return newwin(kWindowCols, kWindowRows, (yMax - kWindowCols) / 2,
-                  (xMax - kWindowRows) / 2);
-}
-
 void Colors() {
     constexpr int kTotalColors = 7;
     for (short i = 1; i <= kTotalColors; ++i) {
@@ -36,8 +27,10 @@ int main() {
     Initialize();
     Colors();
 
-    WINDOW *gameWindow = CentralizeWindow();
-    game::Game tetris(gameWindow);
+    WINDOW *gameWindow =
+        WindowHandler::CentralizedWindow(kWindowCols, kWindowRows);
+    WINDOW *scoreWindow = WindowHandler::MakeScoreWindow(gameWindow);
+    game::Game tetris({gameWindow, scoreWindow});
 
     while (!tetris.IsGameOver()) {
         tetris.Print();

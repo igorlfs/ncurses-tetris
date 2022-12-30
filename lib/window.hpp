@@ -2,10 +2,10 @@
 
 #include <ncurses.h>
 
-class Board {
+class Window {
   public:
     /// Constructors
-    explicit Board(WINDOW *win);
+    explicit Window(WINDOW *win);
 
     /// Getters
     int GetX() const { return this->xMax_ - 1; }

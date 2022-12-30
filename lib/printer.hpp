@@ -13,6 +13,7 @@ class Printer {
   public:
     static void PrintCurrent(const entity::Piece &current, WINDOW *win);
     static void PrintPrevious(const Pieces &previous, WINDOW *win);
+    static void PrintScore(const int &score, WINDOW *win);
     static void Clear(WINDOW *win);
 
   private:
