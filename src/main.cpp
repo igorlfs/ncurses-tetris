@@ -32,6 +32,9 @@ int main() {
     WINDOW *scoreWindow = WindowHandler::MakeScoreWindow(gameWindow);
     game::Game tetris({gameWindow, scoreWindow});
 
+    constexpr int kDelay = 300;
+    wtimeout(gameWindow, kDelay);
+
     while (!tetris.IsGameOver()) {
         tetris.Print();
         tetris.ReadInput();
