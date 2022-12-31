@@ -2,8 +2,8 @@
 #include "msgassert.hpp"
 #include "windowHandler.hpp"
 
-static constexpr int kWindowCols = 10;
-static constexpr int kWindowRows = 20;
+static constexpr int kWindowCols = 12;
+static constexpr int kWindowRows = 22;
 
 void Initialize() {
     initscr();
