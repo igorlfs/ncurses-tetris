@@ -1,4 +1,5 @@
 #include "logic.hpp"
+#include "piece.hpp"
 #include <algorithm>
 
 bool logic::Logic::GeneratePiece() {
@@ -154,4 +155,15 @@ void logic::Logic::PlaceDown() {
         MoveDown();
         Replace();
     }
+}
+
+void logic::Logic::Rotate() {
+    const pair<int, int> TOP_LEFT = this->currentPiece_.GetTopLeft();
+
+    // HACK: we avoid using another variable for collision by reusing the
+    // lateral one. Must be lateral because it is necessary to replace
+    this->lateralCollision_ = this->newPos_.Rotate(TOP_LEFT);
+
+    // Also use lateralCollision_ for checking
+    CheckCollision(true);
 }

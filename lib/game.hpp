@@ -6,6 +6,7 @@
 
 static constexpr int kQuit{static_cast<int>('x')};
 static constexpr int kAction{static_cast<int>(' ')};
+static constexpr int kRotate{static_cast<int>('r')};
 
 namespace game {
 

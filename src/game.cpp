@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "piece.hpp"
 #include "printer.hpp"
 #include <curses.h>
 #include <string>
@@ -24,6 +25,7 @@ void game::Game::Update() {
         case KEY_LEFT: this->gate_.MoveLeft(); break;
         case KEY_RIGHT: this->gate_.MoveRight(); break;
         case kAction: this->gate_.PlaceDown(); break;
+        case kRotate: this->gate_.Rotate(); break;
         default: this->gate_.MoveDown();
     }
 

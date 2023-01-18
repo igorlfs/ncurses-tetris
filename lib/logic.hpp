@@ -17,6 +17,7 @@ class Logic {
 
     explicit Logic(const pair<int, int> &dimensions)
         : height_(dimensions.second), width_(dimensions.first) {
+        entity::Piece::SetEdge({this->height_, this->width_});
         GeneratePiece();
     };
 
@@ -45,6 +46,8 @@ class Logic {
     bool MoveDown();
     void MoveLeft();
     void MoveRight();
+
+    void Rotate();
 
     vector<unsigned> CheckTetris();
     static void ClearRows(const int &row, entity::tetramino *layout);
