@@ -2,6 +2,9 @@
 #include "random.hpp"
 #include <algorithm>
 
+using std::max_element;
+using std::min_element;
+
 entity::Piece::Piece() {
     this->index_ = Random::Rng(0, kLayouts.size() - 1);
     this->layout_ = kLayouts.at(this->index_);
@@ -10,22 +13,22 @@ entity::Piece::Piece() {
 
 int entity::Piece::GetWidth() const {
     const int TOP =
-        std::max_element(this->layout_.begin(), this->layout_.end(),
-                         [](pair<int, int> lhs, pair<int, int> rhs) {
-                             return lhs.second < rhs.second;
-                         })
+        max_element(this->layout_.begin(), this->layout_.end(),
+                    [](const pair<int, int> &lhs, const pair<int, int> &rhs) {
+                        return lhs.second < rhs.second;
+                    })
             ->second;
     const int BOTTOM =
-        std::max_element(this->layout_.begin(), this->layout_.end(),
-                         [](pair<int, int> lhs, pair<int, int> rhs) {
-                             return !(lhs.second < rhs.second);
-                         })
+        max_element(this->layout_.begin(), this->layout_.end(),
+                    [](const pair<int, int> &lhs, const pair<int, int> &rhs) {
+                        return !(lhs.second < rhs.second);
+                    })
             ->second;
     return TOP - BOTTOM + 1;
 }
 
 entity::pair<int, int> entity::Piece::GetTopLeft() const {
-    return *std::min_element(
+    return *min_element(
         this->layout_.begin(), this->layout_.end(),
         [](const pair<int, int> &lhs, const pair<int, int> &rhs) {
             return lhs.first < rhs.first ||
