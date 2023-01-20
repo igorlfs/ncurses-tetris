@@ -41,17 +41,23 @@ void game::Game::Update() {
         this->gate_.Replace();
     }
 
+    this->gate_.PlaceDown(true);
+
     this->score_ += this->gate_.Tetris();
 }
 
 void game::Game::Print() const {
     const auto CURRENT = this->gate_.GetCurrent();
+    auto ghost = this->gate_.GetGhost();
+    const int COLOR = 8;
+    ghost.SetColor(COLOR);
     const auto PREVIOUS = this->gate_.GetPrevious();
     WINDOW *gameWin = this->grid_.GetWin();
     WINDOW *scoreWin = this->scoreWindow_.GetWin();
 
     game::Printer::Clear(gameWin);
-    game::Printer::PrintCurrent(CURRENT, gameWin);
+    game::Printer::PrintPiece(ghost, gameWin);
+    game::Printer::PrintPiece(CURRENT, gameWin);
     game::Printer::PrintPrevious(PREVIOUS, gameWin);
     game::Printer::PrintScore(this->score_, scoreWin);
 }

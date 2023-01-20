@@ -17,8 +17,9 @@ void Initialize() {
 }
 
 void Colors() {
-    constexpr int kTotalColors = 7;
-    for (short i = 1; i <= kTotalColors; ++i) {
+    constexpr int kTotalColors = 8;
+    init_pair(kTotalColors, 0, 0);
+    for (short i = 1; i < kTotalColors; ++i) {
         init_pair(i, i, i);
     }
 }

@@ -11,12 +11,14 @@ using Pieces = vector<entity::Piece>;
 
 class Printer {
   public:
-    static void PrintCurrent(const entity::Piece &current, WINDOW *win);
+    static void PrintPiece(const entity::Piece &piece, WINDOW *win);
     static void PrintPrevious(const Pieces &previous, WINDOW *win);
     static void PrintScore(const int &score, WINDOW *win);
     static void Clear(WINDOW *win);
 
   private:
+    static void AuxPrint(const entity::tetramino &layout, const int &color,
+                         WINDOW *win);
     static constexpr char kChar = ' ';
 };
 

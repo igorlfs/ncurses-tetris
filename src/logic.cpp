@@ -12,23 +12,28 @@ bool logic::Logic::GeneratePiece() {
     this->currentPiece_ = newPiece;
     this->newPos_ = this->currentPiece_;
 
+    // The first piece needs this to not glitch
+    PlaceDown(true);
+
     return !CheckCollision();
 }
 
-bool logic::Logic::MoveDown() {
+bool logic::Logic::MoveDown(const bool &simulate) {
     this->newPos_ = GetCurrent();
     const auto *layout = GetCurrentLayout();
 
     for (const auto &block : *layout) {
         if (block.first + 1 > this->height_) {
-            Place();
+            if (!simulate) {
+                Place();
+            }
             this->hasCollided_ = true;
             return true;
         }
     }
 
     this->newPos_.MoveDown();
-    if (CheckCollision()) {
+    if (CheckCollision() and !simulate) {
         Place();
     }
 
@@ -150,10 +155,21 @@ int logic::Logic::Tetris() {
     return K_SCORE_MAP.at(this->scoreMultiplier_);
 }
 
-void logic::Logic::PlaceDown() {
+void logic::Logic::PlaceDown(const bool &simulate) {
+    entity::Piece initialPos = this->newPos_;
+    entity::Piece initialCurrent = this->currentPiece_;
+
     while (!this->hasCollided_) {
-        MoveDown();
+        if (simulate) {
+            this->ghost_ = this->newPos_;
+        }
+        MoveDown(simulate);
         Replace();
+    }
+    if (simulate) {
+        this->newPos_ = initialPos;
+        this->currentPiece_ = initialCurrent;
+        ResetCollision();
     }
 }
 

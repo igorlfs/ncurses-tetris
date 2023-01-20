@@ -24,6 +24,7 @@ class Logic {
     /// Getters
 
     entity::Piece GetCurrent() const { return this->currentPiece_; };
+    entity::Piece GetGhost() const { return this->ghost_; };
     entity::tetramino *GetCurrentLayout() {
         return this->currentPiece_.GetLayoutAddr();
     }
@@ -38,12 +39,12 @@ class Logic {
     bool GeneratePiece();
 
     void Place() { this->previousPieces_.push_back(this->currentPiece_); };
-    void PlaceDown();
+    void PlaceDown(const bool &simulate = false);
     void Replace() { this->currentPiece_ = this->newPos_; }
 
     bool CheckCollision(const bool &lateral = false);
 
-    bool MoveDown();
+    bool MoveDown(const bool &simulate = false);
     void MoveLeft();
     void MoveRight();
 
@@ -59,6 +60,7 @@ class Logic {
     int width_;
     entity::Piece newPos_;
     entity::Piece currentPiece_;
+    entity::Piece ghost_;
     bool hasCollided_{false};
     bool lateralCollision_{false};
     unsigned scoreMultiplier_{0};

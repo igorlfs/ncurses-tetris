@@ -39,6 +39,7 @@ class Piece {
 
     /// Setters
     static void SetEdge(const pair<int, int> &node) { edge = node; }
+    void SetColor(const short &color) { this->color_ = color; }
 
     /// Actions
 
