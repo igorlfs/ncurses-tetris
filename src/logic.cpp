@@ -2,6 +2,9 @@
 #include "piece.hpp"
 #include <algorithm>
 
+using std::any_of;
+using std::pair;
+
 bool logic::Logic::GeneratePiece() {
     entity::Piece newPiece;
     int pWidth = newPiece.GetWidth();
@@ -22,14 +25,15 @@ bool logic::Logic::MoveDown(const bool &simulate) {
     this->newPos_ = GetCurrent();
     const auto *layout = GetCurrentLayout();
 
-    for (const auto &block : *layout) {
-        if (block.first + 1 > this->height_) {
-            if (!simulate) {
-                Place();
-            }
-            this->hasCollided_ = true;
-            return true;
+    if (any_of(layout->begin(), layout->end(),
+               [this](const pair<int, int> &block) {
+                   return block.first > this->height_ - 1;
+               })) {
+        if (!simulate) {
+            Place();
         }
+        this->hasCollided_ = true;
+        return true;
     }
 
     this->newPos_.MoveDown();
@@ -44,10 +48,9 @@ void logic::Logic::MoveLeft() {
     this->newPos_ = GetCurrent();
     const auto *layout = GetCurrentLayout();
 
-    for (const auto &block : *layout) {
-        if (block.second - 1 < 1) {
-            return;
-        }
+    if (any_of(layout->begin(), layout->end(),
+               [](const pair<int, int> &block) { return block.second < 2; })) {
+        return;
     }
 
     this->newPos_.MoveLeft();
@@ -59,10 +62,11 @@ void logic::Logic::MoveRight() {
     this->newPos_ = GetCurrent();
     const auto *layout = GetCurrentLayout();
 
-    for (const auto &block : *layout) {
-        if (block.second + 1 > this->width_) {
-            return;
-        }
+    if (any_of(layout->begin(), layout->end(),
+               [this](const pair<int, int> &block) {
+                   return block.second > this->width_ - 1;
+               })) {
+        return;
     }
 
     this->newPos_.MoveRight();
@@ -76,12 +80,13 @@ bool logic::Logic::CheckCollision(const bool &lateral) {
     for (const auto &piece : this->previousPieces_) {
         const auto PREVIOUS_LAYOUT = piece.GetLayout();
         for (const auto &previous : PREVIOUS_LAYOUT) {
-            for (const auto &block : *layout) {
-                if (block == previous) {
-                    lateral ? this->lateralCollision_ = true
-                            : this->hasCollided_ = true;
-                    return true;
-                }
+            if (any_of(layout->begin(), layout->end(),
+                       [&previous](const pair<int, int> &block) {
+                           return block == previous;
+                       })) {
+                lateral ? this->lateralCollision_ = true
+                        : this->hasCollided_ = true;
+                return true;
             }
         }
     }
